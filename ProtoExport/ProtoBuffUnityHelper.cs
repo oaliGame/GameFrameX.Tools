@@ -13,9 +13,9 @@ namespace GameFrameX.ProtoExport
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("using System;");
-            sb.AppendLine("using ProtoBuf;");
             sb.AppendLine("using System.Collections.Generic;");
-            sb.AppendLine("using GameFrameX.Network.Runtime;");
+            sb.AppendLine("using ProtoBuf;");
+            sb.AppendLine("using Oali.Network;");
 
             sb.AppendLine();
             sb.AppendLine($"namespace {namespaceName}");
