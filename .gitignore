@@ -6,3 +6,4 @@ ToolGUI/obj
 *.user
 ToolGUIProto/obj
 ToolGUIProto/bin
+/bin
