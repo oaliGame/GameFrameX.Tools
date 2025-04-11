@@ -27,18 +27,24 @@ namespace GameFrameX.ProtoExport
             {
                 if (operationCodeInfo.IsEnum)
                 {
-                    sb.AppendLine($"    /// <summary>");
-                    sb.AppendLine($"    /// {operationCodeInfo.Description}");
-                    sb.AppendLine($"    /// </summary>");
+                    if (!string.IsNullOrEmpty(operationCodeInfo.Description))
+                    {
+                        sb.AppendLine($"    /// <summary>");
+                        sb.AppendLine($"    /// {operationCodeInfo.Description}");
+                        sb.AppendLine($"    /// </summary>");
+                    }
                     sb.AppendLine($"    [System.ComponentModel.Description(\"{operationCodeInfo.Description}\")]");
                     sb.AppendLine($"    public enum {operationCodeInfo.Name}");
                     sb.AppendLine("    {");
                     for (var index = 0; index < operationCodeInfo.Fields.Count; index++)
                     {
                         var operationField = operationCodeInfo.Fields[index];
-                        sb.AppendLine($"        /// <summary>");
-                        sb.AppendLine($"        /// {operationField.Description}");
-                        sb.AppendLine($"        /// </summary>");
+                        if (!string.IsNullOrEmpty(operationField.Description))
+                        {
+                            sb.AppendLine($"        /// <summary>");
+                            sb.AppendLine($"        /// {operationField.Description}");
+                            sb.AppendLine($"        /// </summary>");
+                        }
                         sb.AppendLine($"        [System.ComponentModel.Description(\"{operationField.Description}\")]");
                         sb.AppendLine($"        {operationField.Type} = {operationField.Members},");
                         if (index < operationCodeInfo.Fields.Count - 1)
@@ -52,9 +58,12 @@ namespace GameFrameX.ProtoExport
                 }
                 else
                 {
-                    sb.AppendLine($"    /// <summary>");
-                    sb.AppendLine($"    /// {operationCodeInfo.Description}");
-                    sb.AppendLine($"    /// </summary>");
+                    if (!string.IsNullOrEmpty(operationCodeInfo.Description))
+                    {
+                        sb.AppendLine($"    /// <summary>");
+                        sb.AppendLine($"    /// {operationCodeInfo.Description}");
+                        sb.AppendLine($"    /// </summary>");
+                    }
                     sb.AppendLine($"    [ProtoContract]");
                     sb.AppendLine($"    [System.ComponentModel.Description(\"{operationCodeInfo.Description}\")]");
                     if (string.IsNullOrEmpty(operationCodeInfo.ParentClass))
@@ -75,10 +84,12 @@ namespace GameFrameX.ProtoExport
                         {
                             continue;
                         }
-
-                        sb.AppendLine($"        /// <summary>");
-                        sb.AppendLine($"        /// {operationField.Description}");
-                        sb.AppendLine($"        /// </summary>");
+                        if (!string.IsNullOrEmpty(operationField.Description))
+                        {
+                            sb.AppendLine($"        /// <summary>");
+                            sb.AppendLine($"        /// {operationField.Description}");
+                            sb.AppendLine($"        /// </summary>");
+                        }
                         sb.AppendLine($"        [ProtoMember({operationField.Members})]");
                         sb.AppendLine($"        [System.ComponentModel.Description(\"{operationField.Description}\")]");
                         if (operationField.IsRepeated)

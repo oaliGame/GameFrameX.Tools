@@ -25,16 +25,22 @@ namespace GameFrameX.ProtoExport
             {
                 if (operationCodeInfo.IsEnum)
                 {
-                    sb.AppendLine($"\t/// <summary>");
-                    sb.AppendLine($"\t/// {operationCodeInfo.Description}");
-                    sb.AppendLine($"\t/// </summary>");
+                    if (!string.IsNullOrEmpty(operationCodeInfo.Description)) 
+                    {
+                        sb.AppendLine($"\t/// <summary>");
+                        sb.AppendLine($"\t/// {operationCodeInfo.Description}");
+                        sb.AppendLine($"\t/// </summary>");
+                    }
                     sb.AppendLine($"\tpublic enum {operationCodeInfo.Name}");
                     sb.AppendLine("\t{");
                     foreach (var operationField in operationCodeInfo.Fields)
                     {
-                        sb.AppendLine($"\t\t/// <summary>");
-                        sb.AppendLine($"\t\t/// {operationField.Description}");
-                        sb.AppendLine($"\t\t/// </summary>");
+                        if (!string.IsNullOrEmpty(operationField.Description))
+                        {
+                            sb.AppendLine($"\t\t/// <summary>");
+                            sb.AppendLine($"\t\t/// {operationField.Description}");
+                            sb.AppendLine($"\t\t/// </summary>");
+                        }
                         sb.AppendLine($"\t\t{operationField.Type} = {operationField.Members}, ");
                     }
 
@@ -43,9 +49,12 @@ namespace GameFrameX.ProtoExport
                 }
                 else
                 {
-                    sb.AppendLine($"\t/// <summary>");
-                    sb.AppendLine($"\t/// {operationCodeInfo.Description}");
-                    sb.AppendLine($"\t/// </summary>");
+                    if (!string.IsNullOrEmpty(operationCodeInfo.Description))
+                    {
+                        sb.AppendLine($"\t/// <summary>");
+                        sb.AppendLine($"\t/// {operationCodeInfo.Description}");
+                        sb.AppendLine($"\t/// </summary>");
+                    }
                     sb.AppendLine($"\t[ProtoContract]");
                     if (string.IsNullOrEmpty(operationCodeInfo.ParentClass))
                     {
@@ -64,10 +73,12 @@ namespace GameFrameX.ProtoExport
                         {
                             continue;
                         }
-
-                        sb.AppendLine($"\t\t/// <summary>");
-                        sb.AppendLine($"\t\t/// {operationField.Description}");
-                        sb.AppendLine($"\t\t/// </summary>");
+                        if (!string.IsNullOrEmpty(operationField.Description))
+                        {
+                            sb.AppendLine($"\t\t/// <summary>");
+                            sb.AppendLine($"\t\t/// {operationField.Description}");
+                            sb.AppendLine($"\t\t/// </summary>");
+                        }
                         sb.AppendLine($"\t\t[ProtoMember({operationField.Members})]");
                         if (operationField.IsRepeated)
                         {
