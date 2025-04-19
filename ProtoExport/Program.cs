@@ -21,7 +21,13 @@ namespace GameFrameX.ProtoExport
                     throw new Exception("不支持的运行模式");
                 }
 
-                ProtoBufMessageHandler.Start(launcherOptions, modeType);
+                if (!Enum.TryParse<ClearOption>(launcherOptions.ClearOption, true, out var clearOption))
+                {
+                    Console.WriteLine("unknow clear option");
+                    throw new Exception("unknow clear option");
+                }
+
+                ProtoBufMessageHandler.Start(launcherOptions, modeType, clearOption);
                 Console.WriteLine("导出成功,请查看日志");
             }
             catch (Exception e)

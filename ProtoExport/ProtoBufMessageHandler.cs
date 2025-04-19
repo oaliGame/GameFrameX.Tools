@@ -4,15 +4,41 @@ public static class ProtoBufMessageHandler
 {
     private static IProtoGenerateHelper ProtoGenerateHelper;
 
-    public static void Start(LauncherOptions launcherOptions, ModeType modeType)
+    public static void Start(LauncherOptions launcherOptions, ModeType modeType, ClearOption clearOption)
     {
         var outputDirectoryInfo = new DirectoryInfo(launcherOptions.OutputPath);
-        if (outputDirectoryInfo.Exists)
+        if (!outputDirectoryInfo.Exists)
         {
-            outputDirectoryInfo.Delete(true);
+            outputDirectoryInfo.Create();
         }
-
-        outputDirectoryInfo.Create();
+        if (clearOption == ClearOption.CSFile)
+        {
+            foreach (var fileInfo in outputDirectoryInfo.EnumerateFiles("*.cs", SearchOption.TopDirectoryOnly))
+            {
+                try
+                {
+                    File.Delete(fileInfo.FullName);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+        }
+        else if (clearOption == ClearOption.All)
+        {
+            foreach (var fileInfo in outputDirectoryInfo.EnumerateFiles("*", SearchOption.TopDirectoryOnly))
+            {
+                try
+                {
+                    File.Delete(fileInfo.FullName);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+        }
 
         launcherOptions.OutputPath = outputDirectoryInfo.FullName;
 

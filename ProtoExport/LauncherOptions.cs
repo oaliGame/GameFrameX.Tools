@@ -18,4 +18,7 @@ public sealed class LauncherOptions
 
     [Option("isGenerateErrorCode", Required = false, Default = true, HelpText = "是否生成错误码")]
     public bool IsGenerateErrorCode { get; set; }
+
+    [Option("ClearOption", Required = false, Default = nameof(global::ClearOption.None), HelpText = "Clear Option")]
+    public string ClearOption { get; set; }
 }
